@@ -46,7 +46,7 @@ def main_root():
 def leaks_zenithv11(request: fastapi.Request):
     try:
         try:
-            userIP = IPv4Address(request.headers["X-Real-IP"])
+            userIP = IPv4Address(request.headers["x-vprw-internal-realip"])
         except AddressValueError:
             try:
                 userIP = IPv4Address(request.headers["X-Forwarded-For"])
