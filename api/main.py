@@ -47,13 +47,16 @@ def leaks_zenithv11(request: fastapi.Request):
     try:
         try:
             userIP = IPv4Address(request.headers["x-vprw-internal-realip"])
+            print(request.headers["x-vprw-internal-realip"])
             print(f"Found IP {userIP} using x-vprw-internal-realip")
         except AddressValueError:
             try:
                 userIP = IPv4Address(request.headers["X-Forwarded-For"])
+                print(request.headers["X-Forwarded-For"])
                 print(f"Found IP {userIP} using X-Forwarded-For")
             except AddressValueError:
                 userIP = IPv4Address(request.client.host)
+                print(request.client.host)
                 print(f"Found IP {userIP} using client.host")
         filenames = {
             0: Path("music/geoxor-zenith-cutted-reverb.mp3"),
