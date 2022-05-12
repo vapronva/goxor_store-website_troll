@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  web:
+    image: registry.vapronva.pw/api/goxor_store-api:latest
+    restart: unless-stopped
+    container_name: "web_api-goxor_store"
+    environment:
+      - IPINFO_TOKEN=${IPINFO_TOKEN}
+      - YANDEXCLOUD_FOLDERID=${YANDEXCLOUD_FOLDERID}
+      - YANDEXCLOUD_APITOKEN=${YANDEXCLOUD_APITOKEN}
+    user: 1005:1006
+    networks:
+      - "w-gxrstr-network"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web-wa_gxrstr.rule=Host(`api.goxor.store`)"
+      - "traefik.http.routers.web-wa_gxrstr.entrypoints=http"
+      - "traefik.http.routers.web-wa_gxrstr.service=web-wa_gxrstr"
+      - "traefik.http.services.web-wa_gxrstr.loadbalancer.server.port=8000"
+    volumes:
+      - goxorstoreaudiostorage:/usr/src/app/user-audios
+
+volumes:
+  goxorstoreaudiostorage:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: nfsvers=4,addr=192.168.75.10,rw,noatime,nolock,soft,rsize=8192,wsize=8192,tcp,timeo=15
+      device: "192.168.75.10:/mnt/seagate-4tb-ex7-ws221yth/goxor_store/user-audios"
+
+networks:
+  w-gxrstr-network:
+    external: true
