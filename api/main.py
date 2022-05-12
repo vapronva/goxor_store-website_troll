@@ -7,6 +7,7 @@ import pydub
 import fastapi
 from fastapi.responses import StreamingResponse
 import io
+import pycountry
 
 
 app = fastapi.FastAPI(
@@ -70,7 +71,10 @@ def leaks_zenithv11(request: fastapi.Request):
         if not filenames["final"].exists():
             ipinfoInfomation = __ipinfo.getInfo(userIP)
             usPartOne = f"ha-ha! get trolled: you live in {ipinfoInfomation.city}"
-            usPartTwo = f"(which is a nice city in {ipinfoInfomation.country}, by the way)."
+            try:
+                usPartTwo = f"(which is a nice city in {pycountry.countries.get(alpha_2=ipinfoInfomation.country).name}, by the way)."
+            except AttributeError:
+                usPartTwo = f"(which is a nice city in {ipinfoInfomation.country}, by the way)."
             usPartThree = "your ip-address got leaked! it's pronounced like this, just so you know:"
             usPartFour = f"{userIP.__str__().split('.')[0]} point {userIP.__str__().split('.')[1]} point {userIP.__str__().split('.')[2]} point {userIP.__str__().split('.')[3]}."
             usPartFive = f"and that's all for now, folks."
