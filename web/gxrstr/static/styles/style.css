@@ -1,0 +1,225 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #1C1C1C;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.page-container {
+	overflow: hidden;
+}
+
+a {
+	transition: background .3s ease-in-out;
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+@font-face {
+	font-family: 'Inter-Black';
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-black.woff2");
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-black.woff2") format('woff2'),
+		url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-black.woff") format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter-ExtraBold';
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-extrabold.woff2");
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-extrabold.woff2") format('woff2'),
+		url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-extrabold.woff") format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter-LightItalic';
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-light-italic.woff2");
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-light-italic.woff2") format('woff2'),
+		url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-light-italic.woff") format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter-ExtraLight';
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-extralight.woff2");
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-extralight.woff2") format('woff2'),
+		url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-extralight.woff") format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-roman.var.woff2");
+	src: url("https://static.wesa.vapronva.pw/fonts/inter/3.19/files/i-roman.var.woff2") format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.mainfs {
+	width: 100%;
+	clear: both;
+	background: 50% 50% no-repeat;
+	padding: 0 20px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	position: relative;
+	display: flex;
+}
+
+.mainfs .container {
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+}
+
+.filling-screen {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.filling-screen>.container {
+	align-self: flex-middle;
+	flex-grow: 1;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.filling-screen>.container>.row {
+	flex-grow: 1;
+	align-self: center;
+	width: 100%;
+}
+
+.background-texture::before {
+	content: "";
+	background-size: 2px 2px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.texture-darken::before {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.light-huch {
+	color: rgba(0, 0, 0, .5);
+}
+
+.light-huch h1 a,
+.light-huch h2 a,
+.light-huch p a {
+	color: rgba(0, 0, 0, .6);
+}
+
+.light-huch h1 a:hover,
+.light-huch h2 a:hover,
+.light-huch p a:hover {
+	color: rgba(0, 0, 0, 1);
+}
+
+.margin-zero {
+	margin: 0;
+}
+
+.margin-small {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.margin-medium {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+h1,
+h2,
+p,
+a {
+	font-family: "Inter";
+	color: #FFFFFF !important;
+}
+
+.container {
+	max-width: 1140px;
+}
+
+.h1-intro-title-style {
+	font-family: "Inter-Black";
+	letter-spacing: 10px;
+	opacity: 0.8;
+}
+
+.par-file-notice-style {
+	font-family: "Inter-ExtraLight";
+	color: rgba(255, 255, 255, 0.40) !important;
+	font-size: 10px;
+}
+
+.par-audio-description-style {
+	font-family: "Inter-LightItalic";
+	font-size: 10px;
+}
+
+.h2-intro-title-subheading-style {
+	font-family: "Inter-ExtraBold";
+	letter-spacing: 5px;
+}
+
+.uicolor-white {
+	color: #FFFEFE !important;
+}
+
+.lttstoredotcom-full-white {
+	color: rgba(255, 255, 255, 0.30) !important;
+}
+
+.lttstoredotcom-full-white:hover {
+	color: #cccccc !important;
+}
+
+@media (min-width: 576px) {
+	.padding-zero-small {
+		padding: 0 20px;
+	}
+}
+
+@media (min-width: 768px) {
+	.padding-zero-medium {
+		padding: 0 20px;
+	}
+}
+
+@media (min-width: 992px) {
+	.padding-zero-large {
+		padding: 0 20px;
+	}
+}
+
+@media (max-width: 991px) {
+	.container {
+		width: 100%;
+	}
+
+	.mainfs {
+		padding-left: constant(safe-area-inset-left);
+		padding-right: constant(safe-area-inset-right);
+	}
+}

@@ -19,20 +19,23 @@ docker-build:
     - cd api/
     - docker build --pull -t "$REGISTRY/api/goxor_store-api" .
     - docker push "$REGISTRY/api/goxor_store-api"
+    - cd ../web
+    - docker build --pull -t "$REGISTRY/website/goxor_store-website" .
+    - docker push "$REGISTRY/website/goxor_store-website"
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
         - api/Dockerfile
+        - web/Dockerfile
 
 deploy-job:
   stage: deploy
   before_script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
   script:
-    - cd api/
     - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' down
     - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' up -d
   rules:
     - if: $CI_COMMIT_BRANCH
       exists:
-        - api/docker-compose.yml
+        - docker-compose.yml
