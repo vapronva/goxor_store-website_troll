@@ -9,7 +9,7 @@ include:
 - template: Security/SAST.gitlab-ci.yml
 - template: Security/SAST-IaC.latest.gitlab-ci.yml
 
-docker-build:
+docker-build-api:
   stage: build
   services:
   - docker:dind
@@ -19,6 +19,21 @@ docker-build:
   - cd api/
   - docker build --pull -t "$REGISTRY/api/goxor_store-api" .
   - docker push "$REGISTRY/api/goxor_store-api"
+  rules:
+  - if: $CI_COMMIT_BRANCH == "main"
+    exists:
+    - docker-compose.yml
+    changes:
+    - api/*
+    - docker-compose.yml
+
+docker-build-web:
+  stage: build
+  services:
+  - docker:dind
+  before_script:
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+  script:
   - cd ../web
   - docker build --pull -t "$REGISTRY/website/goxor_store-website" .
   - docker push "$REGISTRY/website/goxor_store-website"
@@ -27,7 +42,6 @@ docker-build:
     exists:
     - docker-compose.yml
     changes:
-    - api/*
     - web/*
     - docker-compose.yml
 

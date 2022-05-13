@@ -16,7 +16,7 @@ function inViewCheck() {
 	hiddenItems.forEach(targetObj => {
 		const targetRect = targetObj.getBoundingClientRect();
 		const offsetTop = (targetRect.top + window.scrollY);
-		const a = offsetTop + targetObj.offsetHeight;
+		var a = offsetTop + targetObj.offsetHeight;
 		const b = window.pageYOffset + window.innerHeight;
 		const animEvents = ["webkitAnimationEnd", "mozAnimationEnd", "oAnimationEnd", "animationEnd"];
 		const objectClass = targetObj.className.replace('hideMe', 'animated');
