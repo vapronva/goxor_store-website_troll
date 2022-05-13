@@ -1,3 +1,9 @@
+[![DeepSource Issues](https://deepsource.io/gh/vapronva/goxor_store-website_troll.svg/?label=active+issues&show_trend=true&token=yvH-TF3qsL8rAlqw7RPQT8ly)](https://deepsource.io/gh/vapronva/goxor_store-website_troll/?ref=repository-badge)
+[![API Uptime](https://status.vapronva.pw/api/v1/endpoints/websites-goxorstore_goxor-store-backend-url-ping-internal/uptimes/7d/badge.svg)](https://status.vapronva.pw/endpoints/websites-goxorstore_goxor-store-backend-url-ping-internal)
+[![Website Uptime](https://status.vapronva.pw/api/v1/endpoints/websites-goxorstore_goxor-store-frontend-url-ping/uptimes/7d/badge.svg)](https://status.vapronva.pw/endpoints/websites-goxorstore_goxor-store-frontend-url-ping)
+[![Continuous Integration](https://gitlab.vapronva.pw/vapronva/goxor_store-website_troll/badges/main/pipeline.svg)](https://gitlab.vapronva.pw/vapronva/goxor_store-website_troll/pipelines/latest)
+[![Time Spent on the Project](https://wakapi.vapronva.pw/api/badge/vapronva/interval:any/project:goxor_store-website_troll)](https://wakapi.vapronva.pw/summary?project=goxor_store-website_troll&interval=any)
+
 # **[goxor.store](https://goxor.store)** — Yet Another Troll Website
 
 > *holy smokes!!!1! guys, all goxor songs that are in making right now are available to download here!11!!*
