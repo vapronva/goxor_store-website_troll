@@ -1,7 +1,7 @@
 stages:
-  - test
-  - build
-  - deploy
+- test
+- build
+- deploy
 
 sast:
   stage: test
@@ -12,37 +12,37 @@ include:
 docker-build:
   stage: build
   services:
-    - docker:dind
+  - docker:dind
   before_script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
   script:
-    - cd api/
-    - docker build --pull -t "$REGISTRY/api/goxor_store-api" .
-    - docker push "$REGISTRY/api/goxor_store-api"
-    - cd ../web
-    - docker build --pull -t "$REGISTRY/website/goxor_store-website" .
-    - docker push "$REGISTRY/website/goxor_store-website"
-  only:
-    - if: $CI_COMMIT_BRANCH == "main"
-      exists:
-        - docker-compose.yml
-      changes:
-        - api/*
-        - web/*
-        - docker-compose.yml
+  - cd api/
+  - docker build --pull -t "$REGISTRY/api/goxor_store-api" .
+  - docker push "$REGISTRY/api/goxor_store-api"
+  - cd ../web
+  - docker build --pull -t "$REGISTRY/website/goxor_store-website" .
+  - docker push "$REGISTRY/website/goxor_store-website"
+  rules:
+  - if: $CI_COMMIT_BRANCH == "main"
+    exists:
+    - docker-compose.yml
+    changes:
+    - api/*
+    - web/*
+    - docker-compose.yml
 
 deploy-job:
   stage: deploy
   before_script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
   script:
-    - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' down
-    - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' up -d
-  only:
-    - if: $CI_COMMIT_BRANCH == "main"
-      exists:
-        - docker-compose.yml
-      changes:
-        - api/*
-        - web/*
-        - docker-compose.yml
+  - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' down
+  - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' up -d
+  rules:
+  - if: $CI_COMMIT_BRANCH == "main"
+    exists:
+    - docker-compose.yml
+    changes:
+    - api/*
+    - web/*
+    - docker-compose.yml
