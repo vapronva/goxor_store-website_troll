@@ -22,15 +22,14 @@ docker-build:
     - cd ../web
     - docker build --pull -t "$REGISTRY/website/goxor_store-website" .
     - docker push "$REGISTRY/website/goxor_store-website"
-  rules:
-    - if: $CI_COMMIT_BRANCH
+  only:
+    - if: $CI_COMMIT_BRANCH == "main"
       exists:
-        - api/Dockerfile
-        - web/Dockerfile
-    - changes:
-      - api/*
-      - web/*
-      - docker-compose.yml
+        - docker-compose.yml
+      changes:
+        - api/*
+        - web/*
+        - docker-compose.yml
 
 deploy-job:
   stage: deploy
@@ -39,11 +38,11 @@ deploy-job:
   script:
     - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' down
     - docker-compose -f 'docker-compose.yml' --project-name 'w-gxrstr' up -d
-  rules:
-    - if: $CI_COMMIT_BRANCH
+  only:
+    - if: $CI_COMMIT_BRANCH == "main"
       exists:
         - docker-compose.yml
-    - changes:
-      - api/*
-      - web/*
-      - docker-compose.yml
+      changes:
+        - api/*
+        - web/*
+        - docker-compose.yml
