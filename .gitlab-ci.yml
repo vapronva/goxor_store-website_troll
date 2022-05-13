@@ -27,6 +27,7 @@ build-api:
     - api/**/*
     - api/*
     - docker-compose.yml
+    - .gitlab-ci.yml
 
 build-web:
   stage: build
@@ -46,6 +47,7 @@ build-web:
     - web/**/*
     - web/*
     - docker-compose.yml
+    - .gitlab-ci.yml
 
 deploy-job:
   stage: deploy
@@ -64,3 +66,4 @@ deploy-job:
     - web/**/*
     - web/*
     - docker-compose.yml
+    - .gitlab-ci.yml
