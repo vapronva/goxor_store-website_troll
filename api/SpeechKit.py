@@ -23,7 +23,7 @@ class YandexTTS:
         {"name": "filipp", "language": "ru-RU", "gender": "male"}]
 
     def __init__(
-            self, voice: str, speed: float, format: str, sampleRateHertz: int,
+            self, voice: str, speed: float, audioFormat: str, sampleRateHertz: int,
             folderId: str, maxCharachters: int = 5000) -> None:
         self._maxCharachters = maxCharachters
         """
@@ -36,15 +36,15 @@ class YandexTTS:
             sampleRateHertz: Sampling rate of the synthesized audio (used if format==lpcm);
             folderId: Identifier of the folder in YandexCloud.
         """
-        if not voice in map(lambda d: d["name"], self.__voicesList):
+        if voice not in map(lambda d: d["name"], self.__voicesList):
             raise TypeError(
-                f"Invalid speaker: no such a speaker was found in a list.")
+                "Invalid speaker: no such a speaker was found in a list.")
         self._params = {
-            "lang": next(
+            "lang": next( # skipcq: PTC-W0063
                 item for item in self.__voicesList if item["name"] == voice)["language"],
             "voice": voice,
             "speed": speed,
-            "format": format,
+            "format": audioFormat,
             "sampleRateHertz": sampleRateHertz,
             "folderId": folderId}
         self.__data = None
@@ -56,13 +56,7 @@ class YandexTTS:
         Args:
             ycAPIKey (str): YandexCloud API key.
         """
-        # response = requests.post(
-        #     url=APIEndpoints.IAM.value,
-        #     headers={"Content-Type": "text/plain; charset=utf-8"},
-        #     data={"yandexPassportOauthToken": ycAPIKey}.__str__())
-        # print(response.json())
-        # self._IAMToken = response.json()["iamToken"]
-        self.__IAMToken = ycAPIKey
+        self._IAMToken = ycAPIKey
 
     def generate(self, text: str) -> None:
         """
@@ -79,11 +73,11 @@ class YandexTTS:
         self.__data = requests.post(
             APIEndpoints.Text2Speech.value,
             headers={
-                "Authorization": f"Api-Key {self.__IAMToken}"},
+                "Authorization": f"Api-Key {self._IAMToken}"},
             data=params,
             stream=True).iter_content()
 
-    def writeData(self, path: Path) -> None:
+    def writeData(self, path: Path) -> None: # skipcq: PTC-W6004
         with open(path, "wb") as f:
             for data in self.__data:
                 f.write(data)

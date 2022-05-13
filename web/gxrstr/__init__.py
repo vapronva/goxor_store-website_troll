@@ -1,6 +1,5 @@
 from flask import Flask
-import logging
 
 app = Flask("web-goxorstore", template_folder="gxrstr/templates")
 
-from gxrstr import views
+from gxrstr import views # skipcq: PY-W2000

@@ -24,13 +24,13 @@ __ipinfo = IPInfoAPI(os.environ["IPINFO_TOKEN"])
 __ttsMale = YandexTTS(
     voice="nick",
     speed=1.0,
-    format="oggopus",
+    audioFormat="oggopus",
     sampleRateHertz=48000,
     folderId=os.environ["YANDEXCLOUD_FOLDERID"])
 __ttsFemale = YandexTTS(
     voice="alyss",
     speed=1.0,
-    format="oggopus",
+    audioFormat="oggopus",
     sampleRateHertz=48000,
     folderId=os.environ["YANDEXCLOUD_FOLDERID"])
 __ttsMale.IAMGen(os.environ["YANDEXCLOUD_APITOKEN"])
@@ -75,9 +75,9 @@ def leaks_zenithv11(request: fastapi.Request):
                 usPartTwo = f"(which is a nice city in {pycountry.countries.get(alpha_2=ipinfoInfomation.country).name}, by the way)."
             except AttributeError:
                 usPartTwo = f"(which is a nice city in {ipinfoInfomation.country}, by the way)."
-            usPartThree = "your ip-address got leaked! it's pronounced like this, just so you know:"
+            # usPartThree = "your ip-address got leaked! it's pronounced like this, just so you know:" # skipcq: PY-W0069
             usPartFour = f"{userIP.__str__().split('.')[0]} point {userIP.__str__().split('.')[1]} point {userIP.__str__().split('.')[2]} point {userIP.__str__().split('.')[3]}."
-            usPartFive = f"and that's all for now, folks."
+            # usPartFive = f"and that's all for now, folks." # skipcq: PY-W0069
             if not filenames[1].exists():
                 __ttsFemale.generate(usPartOne)
                 __ttsFemale.writeData(filenames.get(1))
@@ -107,15 +107,17 @@ def leaks_zenithv11(request: fastapi.Request):
                     "title": "Zenith (v11) [LEAK]",
                     "album": f"haha, your ip is {userIP.__str__()}!"})
         stream = io.BytesIO()
-        stream.write(open(filenames.get("final"), "rb").read())
+        with open(filenames.get("final"), "rb") as f:
+            stream.write(f.read())
         response = StreamingResponse(
             iter([stream.getvalue()]),
             media_type="audio/mpeg")
         return response
-    except Exception as e:
+    except Exception as e: # skipcq: PYL-W0703
         print(e)
         stream = io.BytesIO()
-        stream.write(open("music/rickroll-with-memes.mp3", "rb").read())
+        with open("music/rickroll-with-memes.mp3", "rb") as f:
+            stream.write(f.read())
         response = StreamingResponse(
             iter([stream.getvalue()]),
             media_type="audio/mpeg")
