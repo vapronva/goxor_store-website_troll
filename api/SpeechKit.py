@@ -56,7 +56,7 @@ class YandexTTS:
         Args:
             ycAPIKey (str): YandexCloud API key.
         """
-        self._IAMToken = ycAPIKey
+        self._IAMToken = ycAPIKey # skipcq: PYL-W0201
 
     def generate(self, text: str) -> None:
         """
@@ -77,8 +77,8 @@ class YandexTTS:
             data=params,
             stream=True).iter_content()
 
-    def writeData(self, path: Path) -> None: # skipcq: PTC-W6004
-        with open(path, "wb") as f:
+    def writeData(self, path: Path) -> None:
+        with open(path, "wb") as f: # skipcq: PTC-W6004
             for data in self.__data:
                 f.write(data)
 

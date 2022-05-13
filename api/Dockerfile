@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN apk add --no-cache ffmpeg=5.0.1-r1
+RUN apk add --no-cache ffmpeg=~4.4.1-r2
 
 RUN apk add --no-cache gst-libav=1.20.2-r0
 

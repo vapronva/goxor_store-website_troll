@@ -1,7 +1,7 @@
 function hideAll() {
 	document.querySelectorAll('.animated').forEach(targetObj => {
-		let targetRect = targetObj.getBoundingClientRect();
-		let targetObjX = targetRect.top + (targetObj.offsetHeight / 3);
+		const targetRect = targetObj.getBoundingClientRect();
+		const targetObjX = targetRect.top + (targetObj.offsetHeight / 3);
 		if ((!document.body.classList.contains('mobile-device-nuts')) || (document.body.classList.contains('mobile-device-nuts') && window.innerWidth > 767)) {
 			if (targetObjX > window.innerHeight) {
 				targetObj.classList.remove("animated");
@@ -14,24 +14,24 @@ function hideAll() {
 function inViewCheck() {
 	const hiddenItems = [].slice.call(document.querySelectorAll('.hideMe'), 0).reverse();
 	hiddenItems.forEach(targetObj => {
-		let targetRect = targetObj.getBoundingClientRect();
-		let offsetTop = (targetRect.top + window.scrollY);
-		let a = offsetTop + targetObj.offsetHeight;
-		let b = window.pageYOffset + window.innerHeight;
-		let animEvents = ["webkitAnimationEnd", "mozAnimationEnd", "oAnimationEnd", "animationEnd"];
-		let objectClass = targetObj.className.replace('hideMe', 'animated');
+		const targetRect = targetObj.getBoundingClientRect();
+		const offsetTop = (targetRect.top + window.scrollY);
+		const a = offsetTop + targetObj.offsetHeight;
+		const b = window.pageYOffset + window.innerHeight;
+		const animEvents = ["webkitAnimationEnd", "mozAnimationEnd", "oAnimationEnd", "animationEnd"];
+		const objectClass = targetObj.className.replace('hideMe', 'animated');
 		if (targetObj.offsetHeight > window.innerHeight) {
 			a = offsetTop
 		}
 		if (a < b) {
 			targetObj.style.visibility = "hidden";
 			targetObj.removeAttribute("class");
-			setTimeout(function () {
+			setTimeout(() => {
 				targetObj.style.visibility = "visible";
 				targetObj.setAttribute('class', objectClass);
 			}, 0.01);
 			animEvents.forEach((e) => {
-				window.addEventListener(e, (_) => {
+				window.addEventListener(e, () => {
 					targetObj.classList.remove(targetObj.getAttribute("data-appear-anim-style"));
 				});
 			});
