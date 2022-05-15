@@ -9,15 +9,11 @@ services:
       - IPINFO_TOKEN=${IPINFO_TOKEN}
       - YANDEXCLOUD_FOLDERID=${YANDEXCLOUD_FOLDERID}
       - YANDEXCLOUD_APITOKEN=${YANDEXCLOUD_APITOKEN}
+      - VIRTUAL_HOST=api.goxor.store
+      - VIRTUAL_PORT=8000
     user: 1005:1006
     networks:
       - "w-gxrstr-network"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.web-wa_gxrstr.rule=Host(`api.goxor.store`)"
-      - "traefik.http.routers.web-wa_gxrstr.entrypoints=http"
-      - "traefik.http.routers.web-wa_gxrstr.service=web-wa_gxrstr"
-      - "traefik.http.services.web-wa_gxrstr.loadbalancer.server.port=8000"
     volumes:
       - goxorstoreaudiostorage:/usr/src/app/user-audios
   app_web:
@@ -27,12 +23,9 @@ services:
     user: 1005:1006
     networks:
       - "w-gxrstr-network"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.web-w_gxrstr.rule=Host(`goxor.store`)"
-      - "traefik.http.routers.web-w_gxrstr.entrypoints=http"
-      - "traefik.http.routers.web-w_gxrstr.service=web-w_gxrstr"
-      - "traefik.http.services.web-w_gxrstr.loadbalancer.server.port=8000"
+    environment:
+      - VIRTUAL_HOST=goxor.store
+      - VIRTUAL_PORT=8000
 
 volumes:
   goxorstoreaudiostorage:
